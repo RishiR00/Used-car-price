@@ -1,63 +1,76 @@
-**What Drives the Price of a Used Car?**
+# What Drives the Price of a Used Car?
 
-***Project Overview***
+## Project Overview
 
 This project explores a dataset of 426,000 used car records from Kaggle to understand the key factors that influence a vehicle's price. The ultimate goal is to provide clear,
 data-driven recommendations to a used car dealership to help them optimize their inventory, increase turnover, and improve pricing strategies.
 
-***Framework Used***
+## Framework Used
+
 The analysis strictly follows the CRISP-DM (Cross-Industry Standard Process for Data Mining) framework, structured into six major phases:
+
 1 Business Understanding
+
 2 Data Understanding
+
 3 Data Preparation
+
 4 Modeling
+
 5 Evaluation
+
 6 Deployment
 
-***1. Business Understanding***
+
+### 1. Business Understanding
+
 Objective: To translate the business goal of maximizing dealership profit into a data problem by identifying the key mathematical drivers of used car prices.
 
 Deliverable: Actionable, non-technical recommendations for a used car dealership on what consumers value most in the current market.
 
-***2. Data Understanding & Exploratory Data Analysis (EDA)***
+### 2. Data Understanding & Exploratory Data Analysis (EDA
 
 The initial dataset contained 426,000 rows and 18 columns.
 
   ****Missing Data Analysis:****  A visual and statistical analysis was performed to identify missing values.
 
-      Critical: The size column was missing ~72% of its data and was flagged for complete removal to prevent model bias.
+   - Critical: The size column was missing ~72% of its data and was flagged for complete removal to prevent model bias.
       
-      Moderate/Minor: Other columns like cylinders, condition, and VIN had varying levels of missing data requiring strategic imputation rather than deletion.
+   - Moderate/Minor: Other columns like cylinders, condition, and VIN had varying levels of missing data requiring strategic imputation rather than deletion.
 
   ****Exploratory Insights:****
-    The price distribution is heavily right-skewed, with typical vehicle prices clustering between $8k and $26k.
+  
+  The price distribution is heavily right-skewed, with typical vehicle prices clustering between $8k and $26k.
     
-      Scatter plots revealed a distinct negative correlation between price and mileage.
-      
-      Utility and luxury brands (Ram, Mercedes-Benz, BMW, Lexus) command noticeably higher average prices than mass-market manufacturers like Honda or Hyundai.
+  - Scatter plots revealed a distinct negative correlation between price and mileage.
+  - Utility and luxury brands (Ram, Mercedes-Benz, BMW, Lexus) command noticeably higher average prices than mass-market manufacturers like Honda or Hyundai.
 
-***3. Data Preparation & Feature Engineering***
+
+
+
+### 3. Data Preparation & Feature Engineering
 To ensure the machine learning models received clean, mathematical inputs without data leakage, the following pipeline was executed:
 
   ****Cleaning & Imputation::**** Dropped id and size. Converted the messy VIN column into a usable binary has_VIN feature. Filled missing odometer values with the dataset median, and imputed missing categorical variables (like fuel, condition) with placeholders or mode values.
     
   ****Outlier Removal::**** Applied an Interquartile Range (IQR) filter to mathematically strip out extreme price anomalies. Applied a logarithmic transformation (log_price) to normalize the target variable.
 
-  ****Feature Engineering:****
-    Created a continuous variable, car_age, derived from the vehicle's year to better represent wear-and-tear.
-    
-    Applied One-Hot Encoding to convert categorical text (like drive type) into binary format.
+  ****Feature Engineering:**** 
+  - Created a continuous variable, car_age, derived from the vehicle's year to better represent wear-and-tear.
+  - Applied One-Hot Encoding to convert categorical text (like drive type) into binary format.
+  - Used Standard Scaling to normalize numerical features so columns with naturally large numbers (like odometer) wouldn't unfairly dominate the model.
 
-Used Standard Scaling to normalize numerical features so columns with naturally large numbers (like odometer) wouldn't unfairly dominate the model.
 
-***4. Modeling***
+
+
+### 4. Modeling
 Three distinct regression models were trained to predict the car's log price. Grid Search Cross-Validation (GridSearchCV) was used to tune hyperparameters for the regularized models.
   - Standard Linear Regression
   - Ridge Regression (L2 Regularization)
   - Lasso Regression (L1 Regularization)
 
     
-****Results:****
+ ****Results:****
   
   - Performance: All three models successfully captured the market trends, achieving an $R^2$ score of approximately 0.643 (explaining ~64.3% of the variance in used car prices).
   
@@ -66,7 +79,8 @@ Three distinct regression models were trained to predict the car's log price. Gr
   - Final Selection: Standard Linear Regression was chosen as the winning model. Because the dataset did not suffer from heavy multicollinearity, the regularized Ridge and Lasso models provided no accuracy boost while taking significantly longer to compute.
 (Note: Exploring Polynomial Features to capture non-linear depreciation curves was attempted but limited by memory constraints).
 
-***5. Evaluation & Business Recommendations***
+
+### 5. Evaluation & Business Recommendations
 By extracting the mathematical coefficients from the trained Linear Regression model, we can clearly identify the exact features that drive vehicle prices up or down.
 
 ****The Biggest Depreciators (What drives prices down)****
