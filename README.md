@@ -102,3 +102,4 @@ By extracting the mathematical coefficients from the trained Linear Regression m
   - Condition is King: Consumers are highly risk-averse. Ensure all inventory has "Clean" titles. Investing in minor refurbishments to upgrade a car's cosmetic or mechanical condition from "Good" to "Excellent" will yield a high return on investment.
 
   - Regional Adaptation: Tailor your lot's inventory to local geography—stock more AWD/4WD vehicles if your dealership is in a region with harsh weather or rough terrain.
+# Cloud-Sentry
